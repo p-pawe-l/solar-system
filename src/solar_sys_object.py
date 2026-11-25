@@ -1,6 +1,15 @@
+"""
+Note: 
+We are using Newtonian Mechanics for calculating new positions, velocities,
+forces of objects in Solar System.
+Additionaly we are using Euclidean approach in order to calculate differences
+in velocity and position over time.
+"""
+
 import numpy as np
 
 from consts import G
+
 class SolarSystemObject:
     def __init__(self,
                  name: str, 
@@ -14,6 +23,9 @@ class SolarSystemObject:
         self.position: np.ndarray = init_pos
         self.velocity: np.ndarray = init_vel
         self.forces: np.ndarray | None = None
+
+    def get_name(self) -> str:
+        return self.name
 
     def get_mass(self) -> float:
         return self.mass
@@ -31,7 +43,7 @@ class SolarSystemObject:
         return self.forces
 
     def calc_distance(self, other: "SolarSystemObject") -> float:
-        qsums = np.sum((self.position - other.get_pos() ** 2))
+        qsums = np.sum((self.position - other.get_pos()) ** 2)
         return np.sqrt(qsums)
 
     def total_gravity_force(self, other: "SolarSystemObject") -> float:
